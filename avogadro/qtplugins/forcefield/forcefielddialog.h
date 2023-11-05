@@ -66,6 +66,7 @@ public:
 
 private slots:
   void useRecommendedForceFieldToggled(bool state);
+  void browseFile();
 
 private:
   void updateRecommendedForceField();

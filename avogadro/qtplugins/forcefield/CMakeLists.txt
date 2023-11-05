@@ -1,6 +1,7 @@
 set(forcefield_srcs
   forcefield.cpp
   forcefielddialog.cpp
+  parser_forcefield.cpp
   obmmenergy.cpp
   scriptenergy.cpp
 )

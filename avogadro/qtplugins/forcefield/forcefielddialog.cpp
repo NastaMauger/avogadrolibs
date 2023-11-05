@@ -5,11 +5,16 @@
 
 #include "forcefielddialog.h"
 #include "ui_forcefielddialog.h"
+#include "parser_forcefield.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QDir>   
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QWidget>
+
 
 #include <cmath> // for log10
 
@@ -26,6 +31,8 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
 
   connect(ui->useRecommended, SIGNAL(toggled(bool)),
           SLOT(useRecommendedForceFieldToggled(bool)));
+
+ connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
 
   QSettings settings;
   bool autoDetect =
@@ -121,6 +128,17 @@ void ForceFieldDialog::updateRecommendedForceField()
     useRecommendedForceFieldToggled(ui->useRecommended->isChecked());
     ui->useRecommended->show();
   }
+}
+
+
+void ForceFieldDialog::browseFile() {
+    QString filePath;
+    QString fileContent = ParserForceField::loadAndParseFile(filePath);
+
+    if (!fileContent.isEmpty()) {
+        QString fileName = QFileInfo(filePath).fileName();
+        ui->browseFileButton->setText(tr("%1").arg(fileName));
+    }
 }
 
 } // namespace QtPlugins

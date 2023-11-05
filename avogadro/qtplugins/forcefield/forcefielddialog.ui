@@ -129,12 +129,46 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Force field:</string>
+         <string>Built-in Force field:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
        <widget class="QComboBox" name="forceField"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_ParameterSet"> 
+        <property name="text">
+         <string>Parameter File:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_OR">
+        <property name="text">
+         <string>OR</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_ParameterSetHint">
+        <property name="text">
+         <string>Supported Parameter Files: AMOEBA=EC</string>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize> <!-- Set the desired font size for the second part -->
+         </font>
+        </property>
+        <property name="margin">0</property> <!-- Set the margin to reduce vertical space -->
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="browseFileButton"> 
+        <property name="text">
+         <string> Browse ... </string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1">
        <widget class="QCheckBox" name="useRecommended">
@@ -151,6 +185,8 @@
  <tabstops>
   <tabstop>forceField</tabstop>
   <tabstop>useRecommended</tabstop>
+  <tabstop>browseFileButton</tabstop> 
+  <tabstop>parameterSetComboBox</tabstop>
   <tabstop>energyConv</tabstop>
   <tabstop>stepLimit</tabstop>
   <tabstop>buttonBox</tabstop>
