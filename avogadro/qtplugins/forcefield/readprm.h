@@ -3,22 +3,19 @@
   This source code is released under the 3-Clause BSD License, (see "LICENSE").
 ******************************************************************************/
 
-#ifndef PARSER_FORCEFIELD_H
-#define PARSER_FORCEFIEL_H
+#ifndef READ_PRM_H
+#define READ_PRM_H
 
 #include <QDialog>
 
 namespace Avogadro {
 namespace QtPlugins {
 
-class ParserForceField {
-public:
-    static QString loadAndParseFile(QString& fileName); 
-};
+QString amoebaReadPrm(const QString& fileName); 
 
 
 } // namespace QtPlugins
 } // namespace Avogadro
 
-#endif // PARSER_FORCE_FIELD_H
+#endif // READ_PRM_H
 

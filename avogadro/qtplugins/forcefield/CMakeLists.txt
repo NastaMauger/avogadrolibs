@@ -4,6 +4,7 @@ set(forcefield_srcs
   parser_forcefield.cpp
   obmmenergy.cpp
   scriptenergy.cpp
+  amoeba_readprm.cpp
 )
 
 avogadro_plugin(Forcefield
