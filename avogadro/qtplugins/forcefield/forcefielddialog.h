@@ -7,6 +7,7 @@
 #define AVOGADRO_QTPLUGINS_FORCEFIELDDIALOG_H
 
 #include <QDialog>
+#include <QLabel>
 
 namespace Avogadro {
 namespace QtPlugins {
@@ -73,6 +74,9 @@ private:
 
   Ui::ForceFieldDialog* ui;
   QString m_recommendedForceField;
+
+  QLabel* labelParameterSet;
+  QLabel* labelParameterSetHint;
 };
 
 } // namespace QtPlugins

@@ -59,6 +59,9 @@ public:
 
   std::string recommendedForceField() const;
 
+  static bool polarizedForceField ;
+
+
 public slots:
   /**
    * Scan for new scripts in the Forcefield directories.

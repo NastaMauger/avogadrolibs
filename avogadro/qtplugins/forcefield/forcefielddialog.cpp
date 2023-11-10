@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #include "forcefielddialog.h"
+#include "forcefield.h"
 #include "ui_forcefielddialog.h"
 #include "parser_forcefield.h"
 
@@ -32,7 +33,17 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
   connect(ui->useRecommended, SIGNAL(toggled(bool)),
           SLOT(useRecommendedForceFieldToggled(bool)));
 
- connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+  ui->browseFileButton->setVisible(Forcefield::polarizedForceField);
+
+  connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+
+  // Initialize pointers to the widgets
+  labelParameterSet = ui->label_ParameterSet;
+  labelParameterSetHint = ui->label_ParameterSetHint;
+
+  // Set the initial visibility based on polarizedForceField
+  labelParameterSet->setVisible(Forcefield::polarizedForceField);
+  labelParameterSetHint->setVisible(Forcefield::polarizedForceField);
 
   QSettings settings;
   bool autoDetect =
@@ -132,6 +143,7 @@ void ForceFieldDialog::updateRecommendedForceField()
 
 
 void ForceFieldDialog::browseFile() {
+    qDebug() << "polarizedForceField Value: " << Forcefield::polarizedForceField;
     QString filePath;
     QString fileContent = ParserForceField::loadAndParseFile(filePath);
 
