@@ -37,7 +37,7 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
 
   connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
 
-  qDebug() << polarizedForceField ;
+//  qDebug() << polarizedForceField ;
 
   // Initialize pointers to the widgets
   labelParameterSet = ui->label_ParameterSet;
