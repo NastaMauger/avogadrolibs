@@ -3,8 +3,8 @@
   This source code is released under the 3-Clause BSD License, (see "LICENSE").
 ******************************************************************************/
 
-#include "forcefielddialog.h"
 #include "forcefield.h"
+#include "forcefielddialog.h"
 #include "ui_forcefielddialog.h"
 #include "parser_forcefield.h"
 
@@ -36,6 +36,8 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
   ui->browseFileButton->setVisible(Forcefield::polarizedForceField);
 
   connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+
+  qDebug() << polarizedForceField ;
 
   // Initialize pointers to the widgets
   labelParameterSet = ui->label_ParameterSet;

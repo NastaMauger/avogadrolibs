@@ -6,6 +6,7 @@
 #include "energymanager.h"
 #include "energycalculator.h"
 #include "lennardjones.h"
+#include "amoeba.h"
 
 #include <algorithm>
 #include <memory>
@@ -95,6 +96,7 @@ EnergyManager::EnergyManager()
   // LJ is the fallback, since it can handle anything
   // (maybe not well, but it can handle it)
   addModel(new LennardJones);
+  addModel(new AMOEBA);
 }
 
 EnergyManager::~EnergyManager()
@@ -133,5 +135,6 @@ std::set<std::string> EnergyManager::identifiersForMolecule(
 
   return identifiers;
 }
+
 
 } // namespace Avogadro::Calc

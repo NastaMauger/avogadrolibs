@@ -134,7 +134,6 @@ void Forcefield::showDialog()
   QStringList forceFields;
   auto list =
     Calc::EnergyManager::instance().identifiersForMolecule(*m_molecule);
-  forceFields << "AMOEBA";
   for (auto option : list) {
     forceFields << option.c_str();
   }
@@ -188,6 +187,7 @@ void Forcefield::setupMethod()
   if (m_methodName == "AMOEBA") {
     qDebug() << "User selected AMOEBA forcefield!";
     polarizedForceField = true;
+    qDebug() << polarizedForceField ;
   }
 
   qDebug() << " setup method " << m_methodName.c_str() << " autodetect: "
@@ -362,8 +362,6 @@ std::string Forcefield::recommendedForceField() const
       bestOption = option;
     if (option == "MMFF94" && bestOption != "GAFF")
       bestOption = option;
-    if (option == "AMOEBA")
-      bestOption = "MMFF94";
   }
   if (!bestOption.empty())
     return bestOption;
