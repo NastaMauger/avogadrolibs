@@ -68,6 +68,8 @@ public:
 private slots:
   void useRecommendedForceFieldToggled(bool state);
   void browseFile();
+  void forceFieldSelected(const QString& forceField);
+  void autodetectStateChanged(int state);
 
 private:
   void updateRecommendedForceField();

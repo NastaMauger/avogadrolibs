@@ -33,19 +33,25 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
   connect(ui->useRecommended, SIGNAL(toggled(bool)),
           SLOT(useRecommendedForceFieldToggled(bool)));
 
+  connect(ui->forceField, SIGNAL(activated(const QString&)),
+        this, SLOT(forceFieldSelected(const QString&)));
+
+  connect(ui->useRecommended, &QCheckBox::stateChanged, this, &ForceFieldDialog::autodetectStateChanged);
+
   ui->browseFileButton->setVisible(Forcefield::polarizedForceField);
 
-  connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
-
-//  qDebug() << polarizedForceField ;
+  if (Forcefield::polarizedForceField) {
+    connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+  }
 
   // Initialize pointers to the widgets
   labelParameterSet = ui->label_ParameterSet;
   labelParameterSetHint = ui->label_ParameterSetHint;
 
   // Set the initial visibility based on polarizedForceField
-  labelParameterSet->setVisible(Forcefield::polarizedForceField);
-  labelParameterSetHint->setVisible(Forcefield::polarizedForceField);
+  bool initialVisibility = Forcefield::polarizedForceField && !ui->forceField->currentText().isEmpty();
+  labelParameterSet->setVisible(initialVisibility);
+  labelParameterSetHint->setVisible(initialVisibility);
 
   QSettings settings;
   bool autoDetect =
@@ -143,16 +149,42 @@ void ForceFieldDialog::updateRecommendedForceField()
   }
 }
 
-
 void ForceFieldDialog::browseFile() {
-    qDebug() << "polarizedForceField Value: " << Forcefield::polarizedForceField;
     QString filePath;
-    QString fileContent = ParserForceField::loadAndParseFile(filePath);
 
-    if (!fileContent.isEmpty()) {
-        QString fileName = QFileInfo(filePath).fileName();
-        ui->browseFileButton->setText(tr("%1").arg(fileName));
+    // Only load and parse the file if polarizedForceField is true
+    if (Forcefield::polarizedForceField) {
+        QString fileContent = ParserForceField::loadAndParseFile(filePath);
+
+        if (!fileContent.isEmpty()) {
+            QString fileName = QFileInfo(filePath).fileName();
+            ui->browseFileButton->setText(tr("%1").arg(fileName));
+        }
     }
+}
+
+void ForceFieldDialog::forceFieldSelected(const QString& forceField)
+{
+  // Update polarizedForceField based on the selected force field
+  Forcefield::polarizedForceField = (forceField == "AMOEBA");
+
+  // Update the visibility of the browse button based on the selected force field and polarizedForceField
+  bool isVisible = Forcefield::polarizedForceField;
+  ui->browseFileButton->setVisible(isVisible);
+  labelParameterSet->setVisible(isVisible);
+  labelParameterSetHint->setVisible(isVisible);
+}
+
+void ForceFieldDialog::autodetectStateChanged(int state)
+{
+    // Check if the box is unchecked and the conditions for showing the menu are met
+    bool isVisible = !ui->useRecommended->isChecked() && 
+                     (Forcefield::polarizedForceField && 
+                      ui->forceField->currentText() == "AMOEBA");
+
+    ui->browseFileButton->setVisible(isVisible);
+    labelParameterSet->setVisible(isVisible);
+    labelParameterSetHint->setVisible(isVisible);
 }
 
 } // namespace QtPlugins
