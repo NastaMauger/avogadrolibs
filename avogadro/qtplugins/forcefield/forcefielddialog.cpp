@@ -159,6 +159,7 @@ void ForceFieldDialog::browseFile() {
 void ForceFieldDialog::forceFieldSelected(const QString& forceField)
 {
   // Update polarizedForceField based on the selected force field
+  //We might want to create a list later
   Forcefield::polarizedForceField = (forceField == "AMOEBA");
 
 

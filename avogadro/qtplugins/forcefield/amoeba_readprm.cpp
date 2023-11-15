@@ -22,50 +22,50 @@ namespace QtPlugins {
 
 QString ParserForceField::amoebaReadPrm(const QString& fileName) 
 {
-    QString result;
-    QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            
-            // Check for specific keywords or patterns and extract values as needed
-            if (line.contains("bond")) {
-                QStringList parts = line.split(QRegExp("\\s+"));
+ QString result;
+ QFile file(fileName);
+ if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+  QTextStream in(&file);
+  while (!in.atEnd()) {
+    QString line = in.readLine();
+    
+    // Check for specific keywords or patterns and extract values as needed
+    if (line.contains("bond")) {
+      QStringList parts = line.split(QRegExp("\\s+"));
 
-                // Assuming you want to extract the next 4 values after "bond"
-                if (parts.size() >= 5) {
-                    QString bondValue1 = parts[1]; // The first value after "bond"
-                    QString bondValue2 = parts[2]; // The second value
-                    QString bondValue3 = parts[3]; // The third value
-                    QString bondValue4 = parts[4]; // The fourth value
+      // Assuming you want to extract the next 4 values after "bond"
+      if (parts.size() >= 5) {
+        QString bondValue1 = parts[1]; // The first value after "bond"
+        QString bondValue2 = parts[2]; // The second value
+        QString bondValue3 = parts[3]; // The third value
+        QString bondValue4 = parts[4]; // The fourth value
 
-                    // Check if the extracted values are numeric
-                    bool conversionSuccess = false;
-                    double value1 = bondValue1.toDouble(&conversionSuccess);
-                    if (conversionSuccess) {
-                        double value2 = bondValue2.toDouble(&conversionSuccess);
-                        if (conversionSuccess) {
-                            double value3 = bondValue3.toDouble(&conversionSuccess);
-                            if (conversionSuccess) {
-                                double value4 = bondValue4.toDouble(&conversionSuccess);
-                                if (conversionSuccess) {
-                                    // Debug output to verify the extracted values
-                                    qDebug() << "Bond Values:";
-                                    qDebug() << "Value 1: " << value1;
-                                    qDebug() << "Value 2: " << value2;
-                                    qDebug() << "Value 3: " << value3;
-                                    qDebug() << "Value 4: " << value4;
-                                }
-                            }
-                        }
-                    }
-                }
+        // Check if the extracted values are numeric
+        bool conversionSuccess = false;
+        double value1 = bondValue1.toDouble(&conversionSuccess);
+        if (conversionSuccess) {
+          double value2 = bondValue2.toDouble(&conversionSuccess);
+          if (conversionSuccess) {
+            double value3 = bondValue3.toDouble(&conversionSuccess);
+            if (conversionSuccess) {
+              double value4 = bondValue4.toDouble(&conversionSuccess);
+              if (conversionSuccess) {
+                // Debug output to verify the extracted values
+                qDebug() << "Bond Values:";
+                qDebug() << "Value 1: " << value1;
+                qDebug() << "Value 2: " << value2;
+                qDebug() << "Value 3: " << value3;
+                qDebug() << "Value 4: " << value4;
+              }
             }
+          }
         }
-        file.close();
-    }   
-  return result;
+      }
+    }
+  }
+ file.close();
+ }   
+return result;
 }
 
 
