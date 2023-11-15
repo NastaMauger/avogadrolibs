@@ -6,7 +6,6 @@
 #include "forcefielddialog.h"
 #include "ui_forcefielddialog.h"
 #include "parser_forcefield.h"
-#include "readprm.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
@@ -17,6 +16,8 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QWidget>
 #include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
 
 namespace Avogadro {
 namespace QtPlugins {
@@ -31,13 +32,10 @@ QString ParserForceField::loadAndParseFile(QString& fileName)
   QFile file(fileName);
   if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
     QTextStream in(&file);
-    while (!in.atEnd()) {
-      QString line = in.readLine();
-      fileContent.append(line);
-    }
-    // Check if the file contains the word 'amoeba'
-    //We might want to add ne readprm function depending on waht people need/want
-    if (fileContent.contains("amoeba", Qt::CaseInsensitive)) {
+    QString firstLine = in.readLine();
+    // Check if the first line contains AMOEBA'
+    //We might want to add new readprm function depending on waht people need/want
+    if (firstLine.trimmed().toUpper().contains("AMOEBA")) {
       QString result = amoebaReadPrm(fileName);
     } 
     else {

@@ -5,7 +5,7 @@
 
 #include "forcefielddialog.h"
 #include "ui_forcefielddialog.h"
-#include "readprm.h"
+#include "parser_forcefield.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
@@ -20,7 +20,7 @@ namespace Avogadro {
 namespace QtPlugins {
 
 
-QString amoebaReadPrm(const QString& fileName) 
+QString ParserForceField::amoebaReadPrm(const QString& fileName) 
 {
     QString result;
     QFile file(fileName);

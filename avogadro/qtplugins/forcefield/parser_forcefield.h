@@ -14,6 +14,7 @@ namespace QtPlugins {
 class ParserForceField {
 public:
     static QString loadAndParseFile(QString& fileName); 
+    static QString amoebaReadPrm(const QString& fileName); 
 };
 
 
