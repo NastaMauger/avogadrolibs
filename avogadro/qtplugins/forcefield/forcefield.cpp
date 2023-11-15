@@ -184,14 +184,6 @@ void Forcefield::setupMethod()
   if (m_autodetect)
     m_methodName = recommendedForceField();
 
-  if (m_methodName == "AMOEBA") {
-    qDebug() << "User selected AMOEBA forcefield!";
-    polarizedForceField = true;
-  } else{
-    polarizedForceField = false;
-  }
-
-  qDebug() << polarizedForceField ;
   qDebug() << " setup method " << m_methodName.c_str() << " autodetect: "
            << m_autodetect << " recommended " << recommendedForceField().c_str();
 

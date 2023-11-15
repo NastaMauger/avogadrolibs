@@ -30,19 +30,12 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
   ui->forceField->addItems(forceFields);
   updateRecommendedForceField();
 
-  connect(ui->useRecommended, SIGNAL(toggled(bool)),
-          SLOT(useRecommendedForceFieldToggled(bool)));
-
-  connect(ui->forceField, SIGNAL(activated(const QString&)),
-        this, SLOT(forceFieldSelected(const QString&)));
-
+  connect(ui->useRecommended, SIGNAL(toggled(bool)), SLOT(useRecommendedForceFieldToggled(bool)));
+  connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+  connect(ui->forceField, SIGNAL(activated(const QString&)), this, SLOT(forceFieldSelected(const QString&)));
   connect(ui->useRecommended, &QCheckBox::stateChanged, this, &ForceFieldDialog::autodetectStateChanged);
 
-  ui->browseFileButton->setVisible(Forcefield::polarizedForceField);
-
-  if (Forcefield::polarizedForceField) {
-    connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
-  }
+  ui->browseFileButton->setEnabled(Forcefield::polarizedForceField);  // Enable or disable based on polarizedForceField
 
   // Initialize pointers to the widgets
   labelParameterSet = ui->label_ParameterSet;
@@ -168,9 +161,11 @@ void ForceFieldDialog::forceFieldSelected(const QString& forceField)
   // Update polarizedForceField based on the selected force field
   Forcefield::polarizedForceField = (forceField == "AMOEBA");
 
+
   // Update the visibility of the browse button based on the selected force field and polarizedForceField
   bool isVisible = Forcefield::polarizedForceField;
   ui->browseFileButton->setVisible(isVisible);
+  ui->browseFileButton->setEnabled(isVisible);  
   labelParameterSet->setVisible(isVisible);
   labelParameterSetHint->setVisible(isVisible);
 }
@@ -178,14 +173,18 @@ void ForceFieldDialog::forceFieldSelected(const QString& forceField)
 void ForceFieldDialog::autodetectStateChanged(int state)
 {
     // Check if the box is unchecked and the conditions for showing the menu are met
-    bool isVisible = !ui->useRecommended->isChecked() && 
-                     (Forcefield::polarizedForceField && 
-                      ui->forceField->currentText() == "AMOEBA");
-
+    bool isVisible = !ui->useRecommended->isChecked() && Forcefield::polarizedForceField;
+    
     ui->browseFileButton->setVisible(isVisible);
+    ui->browseFileButton->setEnabled(isVisible);
     labelParameterSet->setVisible(isVisible);
     labelParameterSetHint->setVisible(isVisible);
 }
 
+
 } // namespace QtPlugins
 } // namespace Avogadro
+
+
+
+
