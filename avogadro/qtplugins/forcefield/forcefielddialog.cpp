@@ -147,7 +147,9 @@ void ForceFieldDialog::browseFile() {
 
     // Only load and parse the file if polarizedForceField is true
     if (Forcefield::polarizedForceField) {
+        qDebug() << "Before file loading...";
         QString fileContent = ParserForceField::loadAndParseFile(filePath);
+        qDebug() << "After file loading...";
 
         if (!fileContent.isEmpty()) {
             QString fileName = QFileInfo(filePath).fileName();
