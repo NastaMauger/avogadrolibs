@@ -19,8 +19,7 @@
 namespace Avogadro {
 namespace QtPlugins {
 
-
-QString ParserForceField::amoebaReadPrm(const QString& fileName) 
+QString ParserForceField::amoebaReadPrm(const QString& fileName)
 {
  QString result;
  QFile file(fileName);
@@ -52,10 +51,10 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
               if (conversionSuccess) {
                 // Debug output to verify the extracted values
                 qDebug() << "Bond Values:";
-                qDebug() << "Value 1: " << value1;
-                qDebug() << "Value 2: " << value2;
-                qDebug() << "Value 3: " << value3;
-                qDebug() << "Value 4: " << value4;
+                qDebug() << "Value 1 inside: " << value1;
+                qDebug() << "Value 2 inside: " << value2;
+                qDebug() << "Value 3 inside: " << value3;
+                qDebug() << "Value 4 inside: " << value4;
               }
             }
           }

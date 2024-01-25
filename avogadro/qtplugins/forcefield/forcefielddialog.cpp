@@ -144,16 +144,17 @@ void ForceFieldDialog::updateRecommendedForceField()
   }
 }
 
-void ForceFieldDialog::browseFile() {
-    QString filePath = QFileDialog::getOpenFileUrl(this, tr("Choose Parameter File"), QUrl(), tr("All Files (*)"), nullptr, QFileDialog::DontUseNativeDialog).toLocalFile();
+void ForceFieldDialog::browseFile() 
+{
+  QString homePath = QDir::homePath();
+  QString filePath = QFileDialog::getOpenFileUrl(this, tr("Choose Parameter File"), QUrl::fromLocalFile(homePath), tr("All Files (*)"), nullptr, QFileDialog::DontUseNativeDialog).toLocalFile();
 
-    // Only load and parse the file if polarizedForceField is true
-    if (Forcefield::polarizedForceField && !filePath.isEmpty()) {
-        QString fileContent = ParserForceField::loadAndParseFile(filePath);
-
-        QString fileName = QFileInfo(filePath).fileName();
-        ui->browseFileButton->setText(tr("%1").arg(fileName));
-    }
+  // Only load and parse the file if polarizedForceField is true
+  if (Forcefield::polarizedForceField && !filePath.isEmpty()) {
+    QString fileContent = ParserForceField::loadAndParseFile(filePath);
+    QString fileName = QFileInfo(filePath).fileName();
+    ui->browseFileButton->setText(tr("%1").arg(fileName));
+  }
 }
 
 void ForceFieldDialog::forceFieldSelected(const QString& forceField)

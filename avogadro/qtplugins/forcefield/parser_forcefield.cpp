@@ -36,7 +36,7 @@ QString ParserForceField::loadAndParseFile(const QString& fileName)
     //We might want to add new readprm function depending on waht people need/want
     if (firstLine.trimmed().toUpper().contains("AMOEBA")) {
       QString result = amoebaReadPrm(fileName);
-    } 
+    }  
     else {
       QMessageBox msgBox;
       msgBox.setIcon(QMessageBox::Warning);
