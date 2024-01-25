@@ -31,7 +31,9 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
   updateRecommendedForceField();
 
   connect(ui->useRecommended, SIGNAL(toggled(bool)), SLOT(useRecommendedForceFieldToggled(bool)));
+
   connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+
   connect(ui->forceField, SIGNAL(activated(const QString&)), this, SLOT(forceFieldSelected(const QString&)));
   connect(ui->useRecommended, &QCheckBox::stateChanged, this, &ForceFieldDialog::autodetectStateChanged);
 
@@ -143,18 +145,14 @@ void ForceFieldDialog::updateRecommendedForceField()
 }
 
 void ForceFieldDialog::browseFile() {
-    QString filePath;
+    QString filePath = QFileDialog::getOpenFileUrl(this, tr("Choose Parameter File"), QUrl(), tr("All Files (*)"), nullptr, QFileDialog::DontUseNativeDialog).toLocalFile();
 
     // Only load and parse the file if polarizedForceField is true
-    if (Forcefield::polarizedForceField) {
-        qDebug() << "Before file loading...";
+    if (Forcefield::polarizedForceField && !filePath.isEmpty()) {
         QString fileContent = ParserForceField::loadAndParseFile(filePath);
-        qDebug() << "After file loading...";
 
-        if (!fileContent.isEmpty()) {
-            QString fileName = QFileInfo(filePath).fileName();
-            ui->browseFileButton->setText(tr("%1").arg(fileName));
-        }
+        QString fileName = QFileInfo(filePath).fileName();
+        ui->browseFileButton->setText(tr("%1").arg(fileName));
     }
 }
 

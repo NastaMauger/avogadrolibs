@@ -23,9 +23,8 @@ namespace Avogadro {
 namespace QtPlugins {
 
 
-QString ParserForceField::loadAndParseFile(QString& fileName)
+QString ParserForceField::loadAndParseFile(const QString& fileName)
 {
- fileName = QFileDialog::getOpenFileName(nullptr, "Select Parameter File", QDir::homePath(), "Parameter Files (*.prm *.txt *.out);;All Files (*)");
  QString fileContent;
 
  if (!fileName.isEmpty()) {

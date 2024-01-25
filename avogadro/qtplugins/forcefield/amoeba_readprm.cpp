@@ -56,7 +56,6 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
                 qDebug() << "Value 2: " << value2;
                 qDebug() << "Value 3: " << value3;
                 qDebug() << "Value 4: " << value4;
-                qDebug() << "Bite";
               }
             }
           }
