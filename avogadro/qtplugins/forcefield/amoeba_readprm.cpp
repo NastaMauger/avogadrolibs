@@ -28,45 +28,38 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
   while (!in.atEnd()) {
     QString line = in.readLine();
     
-    // Check for specific keywords or patterns and extract values as needed
+    //BOND STRETCHING PARAMETERS//
     if (line.contains("bond")) {
       QStringList parts = line.split(QRegExp("\\s+"));
 
-      // Assuming you want to extract the next 4 values after "bond"
       if (parts.size() >= 5) {
-        QString bondValue1 = parts[1]; // The first value after "bond"
-        QString bondValue2 = parts[2]; // The second value
-        QString bondValue3 = parts[3]; // The third value
-        QString bondValue4 = parts[4]; // The fourth value
+        QString BondStretchValue1 = parts[1]; // Atom 1
+        QString BondStretchValue2 = parts[2]; // Atom 2
+        QString BondStretchValue3 = parts[3]; // Bond Force constant
+        QString BondStretchValue4 = parts[4]; // Bond Length between Atom1 and Atom2
 
         // Check if the extracted values are numeric
         bool conversionSuccess = false;
-        double value1 = bondValue1.toDouble(&conversionSuccess);
+        double atom1Name = BondStretchValue1.toDouble(&conversionSuccess);
+        double atom2Name = conversionSuccess ? BondStretchValue2.toDouble(&conversionSuccess) : 0.0;
+        double BondForceConstant = conversionSuccess ? BondStretchValue3.toDouble(&conversionSuccess) : 0.0;
+        double BondLength = conversionSuccess ? BondStretchValue4.toDouble(&conversionSuccess) : 0.0;
+
         if (conversionSuccess) {
-          double value2 = bondValue2.toDouble(&conversionSuccess);
-          if (conversionSuccess) {
-            double value3 = bondValue3.toDouble(&conversionSuccess);
-            if (conversionSuccess) {
-              double value4 = bondValue4.toDouble(&conversionSuccess);
-              if (conversionSuccess) {
-                // Debug output to verify the extracted values
-                qDebug() << "Bond Values:";
-                qDebug() << "Value 1 inside: " << value1;
-                qDebug() << "Value 2 inside: " << value2;
-                qDebug() << "Value 3 inside: " << value3;
-                qDebug() << "Value 4 inside: " << value4;
-              }
-            }
-          }
+          // Debug output to verify the extracted values
+          qDebug() << "Bond Values between Atom" << atom1Name << "and Atom" << atom2Name << ";";
+          qDebug() << "Atom 1 Name: " << atom1Name;
+          qDebug() << "Atom 2 Name: " << atom2Name;
+          qDebug() << "Bond Force Constant: " << BondForceConstant;
+          qDebug() << "Bond Length between Atom" << atom1Name << "and" << atom2Name << ":" << BondLength;
         }
       }
     }
   }
- file.close();
- }   
+file.close();
+}   
 return result;
 }
-
 
 
 } // namespace QtPlugins

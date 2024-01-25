@@ -32,13 +32,6 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
 
   connect(ui->useRecommended, SIGNAL(toggled(bool)), SLOT(useRecommendedForceFieldToggled(bool)));
 
-  connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
-
-  connect(ui->forceField, SIGNAL(activated(const QString&)), this, SLOT(forceFieldSelected(const QString&)));
-  connect(ui->useRecommended, &QCheckBox::stateChanged, this, &ForceFieldDialog::autodetectStateChanged);
-
-  ui->browseFileButton->setEnabled(Forcefield::polarizedForceField);  // Enable or disable based on polarizedForceField
-
   // Initialize pointers to the widgets
   labelParameterSet = ui->label_ParameterSet;
   labelParameterSetHint = ui->label_ParameterSetHint;
@@ -47,6 +40,12 @@ ForceFieldDialog::ForceFieldDialog(const QStringList& forceFields,
   bool initialVisibility = Forcefield::polarizedForceField && !ui->forceField->currentText().isEmpty();
   labelParameterSet->setVisible(initialVisibility);
   labelParameterSetHint->setVisible(initialVisibility);
+  ui->browseFileButton->setVisible(initialVisibility);
+  ui->browseFileButton->setEnabled(initialVisibility);
+  
+  connect(ui->browseFileButton, &QPushButton::clicked, this, &ForceFieldDialog::browseFile);
+  connect(ui->forceField, SIGNAL(activated(const QString&)), this, SLOT(forceFieldSelected(const QString&)));
+  connect(ui->useRecommended, &QCheckBox::stateChanged, this, &ForceFieldDialog::autodetectStateChanged);
 
   QSettings settings;
   bool autoDetect =

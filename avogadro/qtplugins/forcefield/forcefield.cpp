@@ -187,8 +187,8 @@ void Forcefield::setupMethod()
   //We might want to create a list later
   polarizedForceField = (m_methodName == "AMOEBA");
 
-  qDebug() << polarizedForceField;
-  qDebug() << " setup method " << m_methodName.c_str() << " autodetect: "
+  qDebug() << "Do I use a Polarized FF?:" << polarizedForceField;
+  qDebug() << "setup method " << m_methodName.c_str() << " autodetect: "
            << m_autodetect << " recommended " << recommendedForceField().c_str();
 
 
