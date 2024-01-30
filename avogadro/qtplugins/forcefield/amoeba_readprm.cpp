@@ -39,16 +39,13 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString AtomTypeValue4 = parts[4] + " " + parts[5] + " " + parts[6];
 
         // Check if the extracted values are numeric
-        bool conversionSuccess = false;
-        double Multipole_Reference_Atom = AtomTypeValue1.toDouble(&conversionSuccess);
-        double Vdw_Reference_Atom = conversionSuccess ? AtomTypeValue2.toDouble(&conversionSuccess) : 0.0;
+        double Multipole_Reference_Atom = AtomTypeValue1.toDouble();
+        double Vdw_Reference_Atom = AtomTypeValue2.toDouble();
 
-        if (conversionSuccess) {
-          // Debug output to verify the extracted values
-          qDebug() << "Atom Type Definitions:";
-          qDebug() << "Atom Type: " << AtomTypeValue4; 
-          qDebug() << "Atom Name: " << AtomTypeValue3; 
-        }
+        // Debug output to verify the extracted values
+        qDebug() << "Atom Type Definitions:";
+        qDebug() << "Atom Type: " << AtomTypeValue4; 
+        qDebug() << "Atom Name: " << AtomTypeValue3; 
       }
     }
 
@@ -63,10 +60,9 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString VDWValue4; // vdW Reduction (initialize it as an empty string)
 
         // Check if the extracted values are numeric
-        bool conversionSuccess = false;
-        double vdWType = VDWValue1.toDouble(&conversionSuccess);
-        double vdWDiameter = conversionSuccess ? VDWValue2.toDouble(&conversionSuccess) : 0.0;    
-        double vdWeps = conversionSuccess ? VDWValue3.toDouble(&conversionSuccess) : 0.0;
+        double vdWType = VDWValue1.toDouble();
+        double vdWDiameter = VDWValue2.toDouble();    
+        double vdWeps = VDWValue3.toDouble();
 
         // Check if there is a 5th part (vdW Reduction)
         if (parts.size() >= 5) {
@@ -75,7 +71,7 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
 
         // Only try to convert if VDWValue4 is not empty and parts size is greater than or equal to 5
         if (!VDWValue4.isEmpty() && parts.size() >= 5) {
-          double vdWReduc = conversionSuccess ? VDWValue4.toDouble(&conversionSuccess) : 0.0;
+          double vdWReduc = VDWValue4.toDouble();
           // Debug output to verify the extracted values
           qDebug() << "vdW Values of Atom Type" << vdWType;
           qDebug() << "vdW Parameter " << vdWDiameter; 
@@ -102,18 +98,15 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString BondStretchValue4 = parts[4]; // Bond Length between Atom1 and Atom2
 
         // Check if the extracted values are numeric
-        bool conversionSuccess = false;
-        double atom1BondName = BondStretchValue1.toDouble(&conversionSuccess);
-        double atom2BondName = conversionSuccess ? BondStretchValue2.toDouble(&conversionSuccess) : 0.0;
-        double BondForceConstant = conversionSuccess ? BondStretchValue3.toDouble(&conversionSuccess) : 0.0;
-        double BondLength = conversionSuccess ? BondStretchValue4.toDouble(&conversionSuccess) : 0.0;
+        double atom1BondName = BondStretchValue1.toDouble();
+        double atom2BondName = BondStretchValue2.toDouble();
+        double BondForceConstant = BondStretchValue3.toDouble();
+        double BondLength = BondStretchValue4.toDouble() ;
 
-        if (conversionSuccess) {
-          // Debug output to verify the extracted values
-          qDebug() << "Bond Values between Atom Type" << atom1BondName << "and Atom Type" << atom2BondName << ":";
-          qDebug() << "Bond Force Constant:" << BondForceConstant;
-          qDebug() << "Bond Length between Atom Type" << atom1BondName << "and" << atom2BondName << ":" << BondLength;
-        }
+        // Debug output to verify the extracted values
+        qDebug() << "Bond Values between Atom Type" << atom1BondName << "and Atom Type" << atom2BondName << ":";
+        qDebug() << "Bond Force Constant:" << BondForceConstant;
+        qDebug() << "Bond Length between Atom Type" << atom1BondName << "and" << atom2BondName << ":" << BondLength;
       }
     }
 
@@ -129,19 +122,16 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString AngleBendValue5 = parts[5]; // Atom Type 1 - Atom Type 2 - Atom Type 3 angle
 
         // Check if the extracted values are numeric
-        bool conversionSuccess = false;
-        double atom1AngleName = AngleBendValue1.toDouble(&conversionSuccess);
-        double atom2AngleName = conversionSuccess ? AngleBendValue2.toDouble(&conversionSuccess) : 0.0;
-        double atom3AngleName = conversionSuccess ? AngleBendValue3.toDouble(&conversionSuccess) : 0.0;
-        double AngleForceConstant = conversionSuccess ? AngleBendValue4.toDouble(&conversionSuccess) : 0.0;
-        double AngleLength = conversionSuccess ? AngleBendValue5.toDouble(&conversionSuccess) : 0.0;
+        double atom1AngleName = AngleBendValue1.toDouble();
+        double atom2AngleName = AngleBendValue2.toDouble();
+        double atom3AngleName = AngleBendValue3.toDouble();
+        double AngleForceConstant = AngleBendValue4.toDouble() ;
+        double AngleLength = AngleBendValue5.toDouble();
 
-        if (conversionSuccess) {
-          // Debug output to verify the extracted values
-          qDebug() << "Angle Values between Atom Type" << atom1AngleName <<","<< atom2AngleName << "and" <<atom3AngleName << ":";
-          qDebug() << "Angle Force Constant:" << AngleForceConstant;
-          qDebug() << "Angle between Atom Type" <<  atom1AngleName <<","<< atom2AngleName << "and" << atom3AngleName << "is :" <<AngleLength;
-        }
+        // Debug output to verify the extracted values
+        qDebug() << "Angle Values between Atom Type" << atom1AngleName <<","<< atom2AngleName << "and" <<atom3AngleName << ":";
+        qDebug() << "Angle Force Constant:" << AngleForceConstant;
+        qDebug() << "Angle between Atom Type" <<  atom1AngleName <<","<< atom2AngleName << "and" << atom3AngleName << "is :" <<AngleLength;
       }
     }
 
@@ -157,19 +147,16 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString UBValue5 = parts[5]; // UB Force constant 
 
         // Check if the extracted values are numeric
-        bool conversionSuccess = false;
-        double atom1UBName = UBValue1.toDouble(&conversionSuccess);
-        double atom2UBName = conversionSuccess ? UBValue2.toDouble(&conversionSuccess) : 0.0;
-        double atom3UBName = conversionSuccess ? UBValue3.toDouble(&conversionSuccess) : 0.0;
-        double UBLength = conversionSuccess ? UBValue4.toDouble(&conversionSuccess) : 0.0;
-        double UBForceConstant = conversionSuccess ? UBValue5.toDouble(&conversionSuccess) : 0.0;
+        double atom1UBName = UBValue1.toDouble();
+        double atom2UBName = UBValue2.toDouble() ;
+        double atom3UBName = UBValue3.toDouble() ;
+        double UBLength = UBValue4.toDouble();
+        double UBForceConstant = UBValue5.toDouble();
 
-        if (conversionSuccess) {
-          // Debug output to verify the extracted values
-          qDebug() << "UB Values between Atom Type" << atom1UBName <<","<< atom2UBName << "and" <<atom3UBName << ":";
-          qDebug() << "UB Length between Atom Type" <<  atom1UBName << "and" << atom3UBName << "is ;" <<UBLength;
-          qDebug() << "UB Force Constant: " << UBForceConstant;
-        }
+        // Debug output to verify the extracted values
+        qDebug() << "UB Values between Atom Type" << atom1UBName <<","<< atom2UBName << "and" <<atom3UBName << ":";
+        qDebug() << "UB Length between Atom Type" <<  atom1UBName << "and" << atom3UBName << "is ;" <<UBLength;
+        qDebug() << "UB Force Constant: " << UBForceConstant;
       }
     }
 
@@ -184,20 +171,17 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString PolarizeValue4 = parts[4]; // Atome Type 2
 
         // Check if the extracted values are numeric
-        bool conversionSuccess = false;
-        double atom1PolarizeName= PolarizeValue1.toDouble(&conversionSuccess);
-        double PolarizeValue = conversionSuccess ? PolarizeValue2.toDouble(&conversionSuccess) : 0.0;
-        double DampingFactor = conversionSuccess ? PolarizeValue3.toDouble(&conversionSuccess) : 0.0;
-        double atom2PolarizeName = conversionSuccess ? PolarizeValue4.toDouble(&conversionSuccess) : 0.0;
+        double atom1PolarizeName= PolarizeValue1.toDouble();
+        double PolarizeValue = PolarizeValue2.toDouble();
+        double DampingFactor = PolarizeValue3.toDouble();
+        double atom2PolarizeName = PolarizeValue4.toDouble();
 
-        if (conversionSuccess) {
-          // Debug output to verify the extracted values
-          qDebug() << "Dipole Polarizability Values of Atom Type" << atom1PolarizeName ;
-          qDebug() << "Polarizability" <<  PolarizeValue ;
-          qDebug() << "Damping Factor: " << DampingFactor;
-          qDebug() << "with Atom Type: " << atom2PolarizeName;
+        // Debug output to verify the extracted values
+        qDebug() << "Dipole Polarizability Values of Atom Type" << atom1PolarizeName ;
+        qDebug() << "Polarizability" <<  PolarizeValue ;
+        qDebug() << "Damping Factor: " << DampingFactor;
+        qDebug() << "with Atom Type: " << atom2PolarizeName;
       
-        }
       }
     }
 
@@ -214,17 +198,14 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
         QString MultipoleValue4 = parts[4]; // Monopole Atom Type 1
     
         // Check if the extracted values are numeric
-        bool monopoleConversionSuccess = false;
-        double atom1MultipoleName = MultipoleValue1.toDouble(&monopoleConversionSuccess);
-        double atom2MultipoleName = monopoleConversionSuccess ? qAbs(MultipoleValue2.toDouble(&monopoleConversionSuccess)) : 0.0;
-        double atom3MultipoleName = monopoleConversionSuccess ? qAbs(MultipoleValue3.toDouble(&monopoleConversionSuccess)) : 0.0;
-        double Monopole = monopoleConversionSuccess ? MultipoleValue4.toDouble(&monopoleConversionSuccess) : 0.0;
+        double atom1MultipoleName = MultipoleValue1.toDouble();
+        double atom2MultipoleName = qAbs(MultipoleValue2.toDouble());
+        double atom3MultipoleName = qAbs(MultipoleValue3.toDouble());
+        double Monopole = MultipoleValue4.toDouble();
     
-        if (monopoleConversionSuccess) {
-          // Debug output to verify the extracted values
-          qDebug() << "Multipole Values of Atom Type" << atom1MultipoleName;
-          qDebug() << "Monopole:" << Monopole;
-        }
+        // Debug output to verify the extracted values
+        qDebug() << "Multipole Values of Atom Type" << atom1MultipoleName;
+        qDebug() << "Monopole:" << Monopole;
       }
     
       // Read Dipole Line
@@ -236,17 +217,14 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
       QString MultipoleValue7 = dipoleParts[3]; // Dipole Z Atom Type 1
     
       // Check if the extracted values are numeric
-      bool dipoleConversionSuccess = false;
-      double DipoleX = MultipoleValue5.toDouble(&dipoleConversionSuccess);
-      double DipoleY = dipoleConversionSuccess ? MultipoleValue6.toDouble(&dipoleConversionSuccess) : 0.0;
-      double DipoleZ = dipoleConversionSuccess ? MultipoleValue7.toDouble(&dipoleConversionSuccess) : 0.0;
+      double DipoleX = MultipoleValue5.toDouble();
+      double DipoleY = MultipoleValue6.toDouble();
+      double DipoleZ = MultipoleValue7.toDouble();
     
-      if (dipoleConversionSuccess) {
-        // Debug output to verify the extracted values
-        qDebug() << "Dipole X:" << DipoleX;
-        qDebug() << "Dipole Y:" << DipoleY;
-        qDebug() << "Dipole Z:" << DipoleZ;
-      }
+      // Debug output to verify the extracted values
+      qDebug() << "Dipole X:" << DipoleX;
+      qDebug() << "Dipole Y:" << DipoleY;
+      qDebug() << "Dipole Z:" << DipoleZ;
     
       // Read Quadrupole Matrix (Line 1)
       QString quadrupoleLine1 = in.readLine();
@@ -256,12 +234,10 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
     
       // Check if the extracted values are numeric
       bool quadrupoleConversionSuccess1 = false;
-      double QuadrupoleXX = MultipoleValue8.toDouble(&quadrupoleConversionSuccess1);
+      double QuadrupoleXX = MultipoleValue8.toDouble();
     
-      if (quadrupoleConversionSuccess1) {
-        // Debug output to verify the extracted values
-        qDebug() << "Quadrupole XX:" << QuadrupoleXX;
-      }
+      // Debug output to verify the extracted values
+      qDebug() << "Quadrupole XX:" << QuadrupoleXX;
 
       // Read Quadrupole Matrix (Line 2)
       QString quadrupoleLine2 = in.readLine();
@@ -271,15 +247,12 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
       QString MultipoleValue10 = quadrupoleParts2[2]; // Quadrupole YY Atom Type 1
 
       // Check if the extracted values are numeric
-      bool quadrupoleConversionSuccess2 = false;
-      double QuadrupoleXY = MultipoleValue9.toDouble(&quadrupoleConversionSuccess2);
-      double QuadrupoleYY = quadrupoleConversionSuccess2 ? MultipoleValue10.toDouble(&quadrupoleConversionSuccess2) : 0.0;
+      double QuadrupoleXY = MultipoleValue9.toDouble();
+      double QuadrupoleYY = MultipoleValue10.toDouble();
 
-      if (quadrupoleConversionSuccess2) {
-        // Debug output to verify the extracted values
-        qDebug() << "Quadrupole XY:" << QuadrupoleXY;
-        qDebug() << "Quadrupole YY:" << QuadrupoleYY;
-      }
+      // Debug output to verify the extracted values
+      qDebug() << "Quadrupole XY:" << QuadrupoleXY;
+      qDebug() << "Quadrupole YY:" << QuadrupoleYY;
 
       // Read Quadrupole Matrix (Line 3)
       QString quadrupoleLine3 = in.readLine();
@@ -300,12 +273,6 @@ QString ParserForceField::amoebaReadPrm(const QString& fileName)
      qDebug() << "Quadrupole ZZ:" << QuadrupoleZZ;
     }
   }
-
-
-
-
-
-
 file.close();
 }   
 return result;
