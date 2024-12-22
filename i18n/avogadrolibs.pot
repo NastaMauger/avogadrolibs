@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Avogadro 1.99.0\n"
 "Report-Msgid-Bugs-To: avogadro-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2024-11-17 02:40+0000\n"
+"POT-Creation-Date: 2024-12-22 02:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1165,7 +1165,7 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
-#: qtgui/layermodel.cpp:147 qtplugins/licorice/licorice.h:29
+#: qtgui/layermodel.cpp:147 qtplugins/licorice/licorice.h:31
 msgctxt "stick / licorice rendering"
 msgid "Licorice"
 msgstr ""
@@ -3247,7 +3247,14 @@ msgid ""
 "Lammps input deck preview pane?"
 msgstr ""
 
-#: qtplugins/licorice/licorice.h:33
+#. i18n: file: qtplugins/qtaim/qtaimsettingswidget.ui:157
+#. i18n: ectx: property (text), widget (QLabel, opacitySliderLabel)
+#: qtplugins/licorice/licorice.cpp:78 qtplugins/meshes/meshes.cpp:163
+#: qtplugins/vanderwaals/vanderwaals.cpp:75 :1631
+msgid "Opacity:"
+msgstr ""
+
+#: qtplugins/licorice/licorice.h:36
 msgid "Render atoms as licorice / sticks."
 msgstr ""
 
@@ -3328,12 +3335,6 @@ msgstr ""
 #: qtplugins/measuretool/measuretool.h:33
 #: qtplugins/measuretool/measuretool.h:34
 msgid "Measure tool"
-msgstr ""
-
-#. i18n: file: qtplugins/qtaim/qtaimsettingswidget.ui:157
-#. i18n: ectx: property (text), widget (QLabel, opacitySliderLabel)
-#: qtplugins/meshes/meshes.cpp:163 qtplugins/vanderwaals/vanderwaals.cpp:75
-msgid "Opacity:"
 msgstr ""
 
 #: qtplugins/meshes/meshes.h:31
